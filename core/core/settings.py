@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # apps
+    'user',
     'portal'
 ]
 
@@ -124,3 +125,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 NEWS_API_KEY = config('NEWS_API_KEY')
+
+AUTH_USER_MODEL = 'user.User'
+
