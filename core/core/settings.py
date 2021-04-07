@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'portal',
     # third party
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
     PermissionsMixin
 from django.db import models
+from django.conf import settings
 
 
 class UserManager(BaseUserManager):
@@ -32,3 +33,17 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
     USERNAME_FIELD = 'email'
+
+
+class Profile(models.Model):
+    """User setting"""
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    country_tag = models.CharField(max_length=255, default=None, null=True)
+    source_tag = models.CharField(max_length=255, default=None, null=True)
+    keyword_tag = models.CharField(max_length=255, default=None, null=True)
+
+    def __str__(self):
+        return f'{self.user.name} Profile'
