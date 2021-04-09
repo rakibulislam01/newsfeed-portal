@@ -10,3 +10,4 @@ sqlparse==0.4.1
 urllib3==1.26.4
 
 djangorestframework~=3.12.4
+django-crispy-forms==1.9.2

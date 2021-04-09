@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model, authenticate
 from django.utils.translation import ugettext_lazy as _
-
 from rest_framework import serializers
 
 from .models import Profile
@@ -59,7 +58,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ('country_tag', 'source_tag', 'keyword_tag')
-        read_only_fields = ('id',)
 
     def update(self, instance, validated_data):
         """Update a user, setting the password correctly and return it"""
@@ -68,7 +66,15 @@ class UserProfileSerializer(serializers.ModelSerializer):
         keyword_tag = validated_data.get('keyword_tag', None)
         user = super().update(instance, validated_data)
 
-        if country_tag:
-            Profile.objects.filter(user=user).update(country_tag=country_tag, source_tag=source_tag, keyword_tag=keyword_tag)
+        Profile.objects.filter(user=user).update(country_tag=country_tag, source_tag=source_tag, keyword_tag=keyword_tag)
         return user
+
+
+class PasswordRestEmailSerializer(serializers.Serializer):
+    """Password reset request mail serializer"""
+
+    email = serializers.EmailField(min_length=2)
+
+    class Meta:
+        fields = ['email']
 

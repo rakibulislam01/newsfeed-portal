@@ -1,0 +1,108 @@
+/*login page css*/
+.login_bg {
+    height: 100vh;
+    display: grid;
+    background-color: white;
+    background: url('../img/login-bg.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #e3e6f0;
+    border-radius: 0.35rem;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+}
+
+.p-0 {
+    padding: 0 !important;
+}
+
+
+.p-5 {
+    padding: 3rem !important;
+}
+
+.text-white {
+    color: #fff !important;
+}
+
+.check_icon {}
+
+.confrim-btn {
+    padding: 10px 40px;
+}
+
+/*font sidebar */
+.mdi::before {
+    font-size: 24px;
+    line-height: 14px;
+}
+
+
+.check_icon .mdi::before {
+    color: white;
+    width: 70px;
+    height: 70px;
+    font-family: Material Design Icons;
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 70px;
+    line-height: 40px;
+    vertical-align: middle;
+    padding-right: 25px;
+}
+
+
+.btn-outline-light {
+    color: #f8f9fc;
+    border-color: #f8f9fc;
+}
+
+.btn-outline-light:hover {
+    color: #3a3b45;
+    background-color: #f8f9fc;
+    border-color: #f8f9fc;
+}
+
+.btn-outline-light:focus,
+.btn-outline-light.focus {
+    box-shadow: 0 0 0 0.2rem rgba(248, 249, 252, 0.5);
+}
+
+.btn-outline-light.disabled,
+.btn-outline-light:disabled {
+    color: #f8f9fc;
+    background-color: transparent;
+}
+
+.o-hidden {
+    overflow: hidden !important;
+}
+
+.card-success {
+    background: linear-gradient(226.09deg, #1DA0E9 0%, #1DC4E9 100%);
+    box-shadow: 0px 9px 32px rgba(1, 200, 254, 0.23);
+    border-radius: 10px;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+#hint_id_new_password1 ul {
+    display: none;
+}
