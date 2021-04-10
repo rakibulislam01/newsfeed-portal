@@ -1,0 +1,73 @@
+{% extends "news/base.html" %}
+
+{% block content %}
+    <div class="container content-section col-md-6">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">User Profile</legend>
+                    <small>Values are comma separated</small>
+                    <div class="form-group">
+                        <label for="reg-country" class="col-form-label">Country:</label>
+                        <input type="text" class="form-control" id="reg-country">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-source" class="col-form-label">Source:</label>
+                        <input type="text" class="form-control" id="reg-source">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-keyword" class="col-form-label">Keyword:</label>
+                        <input type="text" class="form-control" id="reg-keyword">
+                    </div>
+            </fieldset>
+
+            <div class="modal-footer">
+                <button class="btn btn-outline-info" type="submit" onclick="newHeadline('PUT')">Update</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $(document).ready(function() {
+             newHeadline('GET');
+        })
+
+        function attachNews(data, prepend){
+                    var country_tag = data['country_tag'];
+                    var source_tag = data['source_tag'];
+                    var keyword_tag = data['keyword_tag'];
+                    document.getElementById("reg-country").value = country_tag;
+                    document.getElementById("reg-source").value = source_tag;
+                    document.getElementById("reg-keyword").value = keyword_tag;
+                    }
+
+        function newHeadline(value){
+            var country_tag = document.getElementById("reg-country");
+            var source_tag = document.getElementById("reg-source");
+            var keyword_tag = document.getElementById("reg-keyword");
+            var token_v = window.localStorage.getItem('token')
+            var url = 'http://127.0.0.1:8000/api/user/user-profile/';
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                type: value,
+                // contentType: 'application/x-www-form-urlencoded',
+                headers: {"Authorization": 'Token ' + token_v},
+                data : {
+                    country_tag: country_tag.value,
+                    source_tag: source_tag.value,
+                    keyword_tag: keyword_tag.value,
+                },
+                success: function (data) {
+                    $("#news-container").html('')
+                    attachNews(data, true)
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    window.location.replace("http://127.0.0.1:8000/login/");
+                }
+            });
+        }
+    </script>
+{% endblock %}

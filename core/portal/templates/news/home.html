@@ -1,0 +1,120 @@
+{% extends "news/base.html" %}
+
+{% block content %}
+    <style>
+        img {
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          padding: 5px;
+          width: 150px;
+        }
+
+        img:hover {
+          box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+        }
+    </style>
+
+    <article class="media content-section">
+        <div id="news-container">
+        </div>
+    </article>
+    <a href="" class="btn btn-primary" id="btn_prev" onclick="prevPage();return false;">Previous Page <span id="pre_page"></span></a>
+     Page <span id="page" class="" style="margin-right: 15px"></span>
+    <a href="" class="btn btn-primary" id="btn_next" onclick="nextPage();return false;">Next Page <span id="nex_pate"></span></a>
+    <hr>
+
+{% endblock %}
+
+{% block script %}
+
+    <script>
+        var current_page = 1;
+        var next_page = 0;
+
+        $(document).ready(function() {
+             newHeadline();
+             setInterval( newHeadline, 800000);
+        })
+
+        function attachNews(newsValue, prepend){
+                    var headline = newsValue['headline'];
+                    var news_source = newsValue['news_source'];
+                    var thumbnail = newsValue['thumbnail'];
+                    var country = newsValue['country'];
+                    newsFormatedHtml = `<img src = "${thumbnail}" class="img-thumbnail" alt = "img" >
+                                        <h2><a class="article-title" href="${news_source}">${headline}</a></h2>
+                                        <h5>Country: ${country}</h5> </br> <\hr>
+                                        `;
+                    if (prepend === false){
+                            $("#news-container").prepend(newsFormatedHtml)
+                        }else{
+                            $("#news-container").append(newsFormatedHtml)
+                        }
+                    }
+
+        function newHeadline(page=1){
+
+            var token_v = window.localStorage.getItem('token')
+            var url = 'http://127.0.0.1:8000/api/news/';
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                type: 'GET',
+                // contentType: 'application/x-www-form-urlencoded',
+                headers: {"Authorization": 'Token ' + token_v},
+                data : {
+                    page: page
+                },
+                success: function (data) {
+
+                    var btn_next = document.getElementById("btn_next");
+                    var btn_prev = document.getElementById("btn_prev");
+                    var page_span = document.getElementById("page");
+
+                    current_page = data['current_page']
+                    var next_page = data['next_page']
+
+                    if (current_page == 1) {
+                        btn_prev.style.visibility = "hidden";
+                    } else {
+                        btn_prev.style.visibility = "visible";
+                    }
+
+                    if (next_page > current_page) {
+                        btn_next.style.visibility = "visible";
+                    } else {
+                        btn_next.style.visibility = "hidden";
+                    }
+                    page_span.innerHTML = current_page;
+
+                    var total_news = data['news']
+                    $("#news-container").html('')
+                    var i;
+                    for (i = 0; i < total_news.length; i++) {
+                        attachNews(total_news[i], true)
+                    }
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    window.location.replace("http://127.0.0.1:8000/login/");
+                }
+            });
+        }
+
+        // Pagination
+
+        function prevPage()
+        {
+            var page = current_page -1
+            newHeadline(page);
+        }
+
+        function nextPage()
+        {
+            var page = current_page + 1
+            newHeadline(page);
+        }
+    </script>
+
+{% endblock %}
+
+

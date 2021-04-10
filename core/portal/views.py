@@ -1,8 +1,19 @@
-from django.http import HttpResponse
+from django.shortcuts import render
+from django.views.generic import TemplateView
 
-from .top_headlines import get_top_headlines_country
+
+class HomeView(TemplateView):
+    template_name = 'news/home.html'
 
 
-def get_top_headlines(request):
-    json_value = get_top_headlines_country('country_tag', 'source_tag', 'keyword_tag', request)
-    return HttpResponse(json_value)
+class UserProfile(TemplateView):
+    http_method_names = ['get', 'put']
+    template_name = 'news/user_profile.html'
+
+
+def user_profile(request):
+    return render(request, 'news/user_profile.html')
+
+
+class LoginRegView(TemplateView):
+    template_name = 'news/login_reg_view.html'

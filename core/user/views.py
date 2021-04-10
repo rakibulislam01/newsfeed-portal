@@ -54,10 +54,11 @@ class LogoutAPIView(views.APIView):
     def get(self, request, format=None):
         try:
             self.request.auth.delete()
-            message = 'Logout'
+            message = 'Success'
+            return Response(message, status.HTTP_204_NO_CONTENT)
         except:
             message = 'Invalid token.'
-        return Response({"message": message, "status": status.HTTP_204_NO_CONTENT})
+            return Response(message, status.HTTP_401_UNAUTHORIZED)
 
 
 class PasswordRestEmailAPIView(generics.GenericAPIView):

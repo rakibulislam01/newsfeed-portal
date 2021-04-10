@@ -15,7 +15,7 @@
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: #fff;
+    background-color: #25666d;
     background-clip: border-box;
     border: 1px solid #e3e6f0;
     border-radius: 0.35rem;
@@ -94,7 +94,7 @@
 }
 
 .card-success {
-    background: linear-gradient(226.09deg, #1DA0E9 0%, #1DC4E9 100%);
+    background: linear-gradient(226.09deg, #25666d 0%, #3bbcce 100%);
     box-shadow: 0px 9px 32px rgba(1, 200, 254, 0.23);
     border-radius: 10px;
 }

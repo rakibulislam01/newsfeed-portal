@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Success Reset</title>
+        <!-- Custom styles for this template-->
+        <link href="{% static 'admin_portal/css/main.css' %}" rel="stylesheet" type="text/css">
+        <!-- bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+
+    <body class="login_bg">
+        <div class="col-xl-3 col-lg-5 col-md-6 m-auto mt-5">
+            <div class="card o-hidden border-0 card-success">
+                <div class="card-body p-0 card-body-success">
+                    <!-- Nested Row within Card Body -->
+                    <div class="p-5 text-center ">
+                        <button class="btn btn-success" data-toggle="modal" data-target="#removeDataModal">
+                            Login
+                        </button>
+                        <button class="btn btn-success" data-toggle="modal" data-target="#userRegistrationModal">
+                            Register
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- login modal -->
+    <div class="modal fade" id="removeDataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Login Form</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-email" class="col-form-label">email:</label>
+                            <input type="text" class="form-control" id="recipient-email">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-password" class="col-form-label">password:</label>
+                            <input type="password" class="form-control" id="recipient-password">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="login()" >Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- registration modal -->
+    <div class="modal fade" id="userRegistrationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="RegModalLabel">Registration Form</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="reg-email" class="col-form-label">email:</label>
+                            <input type="text" class="form-control" id="reg-email">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-password" class="col-form-label">password:</label>
+                            <input type="password" class="form-control" id="reg-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-name" class="col-form-label">name:</label>
+                            <input type="text" class="form-control" id="reg-name">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="userRegistration()" >Registration</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        function login() {
+        var email = document.getElementById("recipient-email");
+        var password = document.getElementById("recipient-password");
+        var url = 'http://127.0.0.1:8000/api/user/token/';
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: 'POST',
+            contentType: 'application/x-www-form-urlencoded',
+            data: {
+                email: email.value,
+                password: password.value,
+            },
+            success: function (data) {
+                console.log(data.token)
+                window.localStorage.setItem('token', data.token);
+                // window.localStorage.getItem(key);
+                $('#removeDataModal').modal('hide');
+                window.location.replace("http://127.0.0.1:8000/");
+            },
+            error: function (jqXhr, textStatus, errorThrown) {
+                    window.location.replace("http://127.0.0.1:8000/login/");
+                }
+            });
+        }
+
+        function userRegistration() {
+            var email = document.getElementById("reg-email");
+            var password = document.getElementById("reg-password");
+            var name = document.getElementById("reg-name");
+            var url = 'http://127.0.0.1:8000/api/user/create/';
+            $.ajax({
+                url: url,
+                dataType: 'json',
+                type: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                // headers: {"Authorization": localStorage.getItem('token')},
+                data: {
+                    email: email.value,
+                    password: password.value,
+                    name: name.value,
+                },
+                success: function (data) {
+                    window.localStorage.setItem('token', data.token);
+                    // window.localStorage.getItem(key);
+                    $('#removeDataModal').modal('hide');
+                    window.location.replace("http://127.0.0.1:8000/login/");
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    window.location.replace("http://127.0.0.1:8000/login/");
+                }
+            });
+        }
+    </script>
+
+
+    </body>
+</html>
