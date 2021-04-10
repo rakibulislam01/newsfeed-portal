@@ -54,7 +54,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-info" onclick="forgotPassword()">Forgot password</button>
                     <button type="button" class="btn btn-primary" onclick="login()" >Login</button>
                 </div>
             </div>
@@ -153,6 +154,10 @@
                     window.location.replace("http://127.0.0.1:8000/login/");
                 }
             });
+        }
+
+        function forgotPassword(){
+            window.location.replace("http://127.0.0.1:8000/password-reset/");
         }
     </script>
 

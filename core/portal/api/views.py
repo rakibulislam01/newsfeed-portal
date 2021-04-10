@@ -30,7 +30,7 @@ class HeadLinesListAPIView(APIView):
             country_tag = users.country_tag
             source_tag = users.source_tag
             keyword_tag = users.keyword_tag
-            news_list, total_result = get_top_headlines_country(country_tag, source_tag, keyword_tag, page)
+            news_list, total_result = get_top_headlines_country(country_tag, source_tag, keyword_tag, request, page)
             page = int(page)
             total_article = total_result
             total_page = math.ceil(total_article / 10)

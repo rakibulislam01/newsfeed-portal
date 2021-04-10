@@ -89,5 +89,5 @@ class PasswordRestEmailAPIView(generics.GenericAPIView):
                     'email_subject': 'Reset your password'}
             Util.send_email(data)
         return Response(
-            {'Success': 'we have set you a link to reset your password'},
+            {'Success': 'We have sent you a link to reset your password'},
             status=status.HTTP_200_OK)
