@@ -46,7 +46,7 @@ def get_top_headlines_country(country_tag, source_tag, keyword_tag, request, pag
                         }
                         headline_list.append(news_data)
                         for keyword in keyword_list:  # check user keyword list.
-                            if keyword in source['title']:
+                            if keyword.lower() in source['title'].lower():
                                 # check this news already send or not. if send then create false.
                                 p, created = EmailNews.objects.get_or_create(title=source['title'],
                                                                              user=user, send_status=True)
@@ -64,7 +64,7 @@ def get_top_headlines_country(country_tag, source_tag, keyword_tag, request, pag
                 }
                 headline_list.append(news_data)
                 for keyword in keyword_list:
-                    if keyword in source['title']:
+                    if keyword.lower() in source['title'].lower():
                         # check this news already send or not. if send then create false.
                         p, created = EmailNews.objects.get_or_create(title=source['title'],
                                                                      user=request.user, send_status=True)

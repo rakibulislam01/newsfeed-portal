@@ -170,7 +170,7 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-3. Create a superuser to rule the site 😎
+3. Create a superuser to rule the site 😎 [email user]
 
 ```bash
 python manage.py createsuperuser
