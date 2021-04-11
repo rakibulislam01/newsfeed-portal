@@ -190,6 +190,11 @@ After all okay, Then you need to registration for new user. Then login and updat
 user setting for getting news.
 
 ---
+## For live view: 
+- url: https://news-portal-st.herokuapp.com/
+- mail: rakib1@gmail.com
+- password: test123456
+---
 
 
 
