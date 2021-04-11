@@ -105,7 +105,7 @@
         function login() {
         var email = document.getElementById("recipient-email");
         var password = document.getElementById("recipient-password");
-        var url = 'http://127.0.0.1:8000/api/user/token/';
+        var url = '/api/user/token/';
         $.ajax({
             url: url,
             dataType: 'json',
@@ -120,10 +120,10 @@
                 window.localStorage.setItem('token', data.token);
                 // window.localStorage.getItem(key);
                 $('#removeDataModal').modal('hide');
-                window.location.replace("http://127.0.0.1:8000/");
+                window.location.replace("/");
             },
             error: function (jqXhr, textStatus, errorThrown) {
-                    window.location.replace("http://127.0.0.1:8000/login/");
+                    window.location.replace("/login/");
                 }
             });
         }
@@ -132,7 +132,7 @@
             var email = document.getElementById("reg-email");
             var password = document.getElementById("reg-password");
             var name = document.getElementById("reg-name");
-            var url = 'http://127.0.0.1:8000/api/user/create/';
+            var url = '/api/user/create/';
             $.ajax({
                 url: url,
                 dataType: 'json',
@@ -148,16 +148,16 @@
                     window.localStorage.setItem('token', data.token);
                     // window.localStorage.getItem(key);
                     $('#removeDataModal').modal('hide');
-                    window.location.replace("http://127.0.0.1:8000/login/");
+                    window.location.replace("/login/");
                 },
                 error: function (jqXhr, textStatus, errorThrown) {
-                    window.location.replace("http://127.0.0.1:8000/login/");
+                    window.location.replace("/login/");
                 }
             });
         }
 
         function forgotPassword(){
-            window.location.replace("http://127.0.0.1:8000/password-reset/");
+            window.location.replace("/password-reset/");
         }
     </script>
 

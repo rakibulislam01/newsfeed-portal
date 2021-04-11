@@ -62,7 +62,7 @@
         function newHeadline(page=1){
 
             var token_v = window.localStorage.getItem('token')
-            var url = 'http://127.0.0.1:8000/api/news/';
+            var url = '/api/news/';
             $.ajax({
                 url: url,
                 dataType: 'json',
@@ -146,7 +146,7 @@
                     }
 
                     if (data['status'] == 401){
-                        window.location.replace("http://127.0.0.1:8000/login/");
+                        window.location.replace("/login/");
                     }
                     var page_span = document.getElementById("page");
                     page_span.innerHTML = 1;
