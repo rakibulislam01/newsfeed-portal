@@ -6,7 +6,8 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">User Profile</legend>
-                    <small>Values are comma separated</small>
+                    <small>Values are comma separated. Set at least one country.</small> <hr>
+                    <small>Available country: ar, nl, za, au, hk, nz, kr, se, in, no, ch, br, ph, th, ca, cn, it, jp, ru, sa, gb, sg, us</small>
                     <div class="form-group">
                         <label for="reg-country" class="col-form-label">Country:</label>
                         <input type="text" class="form-control" id="reg-country">

@@ -7,6 +7,7 @@ API_KEY = settings.NEWS_API_KEY
 
 
 def get_top_headlines_country(country_tag, source_tag, keyword_tag, request, page=1):
+    """Get top headlines based on user settings"""
     if source_tag:
         source_list = [x.strip() for x in source_tag.split(',')]
     else:
@@ -23,7 +24,7 @@ def get_top_headlines_country(country_tag, source_tag, keyword_tag, request, pag
     headline_list = []
     keyword_mail_list = []
     total_result = 0
-    for country in country_list:
+    for country in country_list:  # chek user country list.
         URL = f'https://newsapi.org/v2/top-headlines?country={country}&pageSize=10&page={page}&apiKey={API_KEY}'
         req = requests.get(URL)
         req_value = req.json()
@@ -32,19 +33,21 @@ def get_top_headlines_country(country_tag, source_tag, keyword_tag, request, pag
         for source in get_sources:
             source_name = source['source']
 
-            if source_list:
+            if source_list:  # check user news source list
                 for key, value in source_name.items():
                     if value in source_list:
                         source['urlToImage'] = source['urlToImage'] if source['urlToImage'] else ''
                         news_data = {
                             'headline': source['title'],
                             'thumbnail': source['urlToImage'],
-                            'news_source': source['url'],
+                            'news_url': source['url'],
+                            'news_source': value,
                             'country': country
                         }
                         headline_list.append(news_data)
-                        for keyword in keyword_list:
+                        for keyword in keyword_list:  # check user keyword list.
                             if keyword in source['title']:
+                                # check this news already send or not. if send then create false.
                                 p, created = EmailNews.objects.get_or_create(title=source['title'],
                                                                              user=user, send_status=True)
                                 if created:
@@ -55,22 +58,24 @@ def get_top_headlines_country(country_tag, source_tag, keyword_tag, request, pag
                 news_data = {
                     'headline': source['title'],
                     'thumbnail': source['urlToImage'],
-                    'news_source': source['url'],
+                    'news_url': source['url'],
+                    'news_source': source['source']['name'],
                     'country': country
                 }
                 headline_list.append(news_data)
                 for keyword in keyword_list:
                     if keyword in source['title']:
+                        # check this news already send or not. if send then create false.
                         p, created = EmailNews.objects.get_or_create(title=source['title'],
                                                                      user=request.user, send_status=True)
                         if created:
                             html_context = f'<p><a href="{source["url"]}">{source["title"]}</a></p>'
                             keyword_mail_list.append(html_context)
 
-    if keyword_mail_list:
+    if keyword_mail_list:  # send mail if keyword are match.
         FORM_EMAIL = settings.FORM_EMAIL
         subject = 'News latter mail'
-        text_content = '<p>This is an News latter message.<p>'
+        text_content = '<p>This is an News latter mail.<p>'
         html_content = ' <hr> '.join(keyword_mail_list)
         html_content = text_content + html_content
         msg = EmailMultiAlternatives(subject=subject, body=text_content, from_email=FORM_EMAIL, to=[str(user)])

@@ -11,7 +11,7 @@ from ..top_headlines import get_top_headlines_country
 
 class HeadLinesListAPIView(APIView):
     """
-    View to list all top head lines.
+    List all top head lines.
 
     * Requires token authentication.
     * Only authorize are able to access this view.
@@ -21,7 +21,7 @@ class HeadLinesListAPIView(APIView):
 
     def get(self, request, *args, **kwargs):
         """
-        Return a list of all users.
+        Return a list news headlines.
         """
         try:
             page = self.request.GET.get('page')
@@ -56,7 +56,7 @@ class HeadLinesListAPIView(APIView):
             data = {
                 'news': news_list,
                 'current_page': page,
-                'next_page': 1,
+                'next_page': 0,
                 'previous_page': 0
             }
             return Response(data, status.HTTP_429_TOO_MANY_REQUESTS)

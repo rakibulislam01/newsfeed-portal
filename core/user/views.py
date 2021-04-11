@@ -28,7 +28,7 @@ class CreateTokenView(ObtainAuthToken):
 
 
 class UserProfileUpdateView(generics.RetrieveUpdateAPIView):
-    """"Manage the authenticated user"""
+    """"Manage the authenticated user profile"""
     serializer_class = UserProfileSerializer
     authentication_classes = (authentication.TokenAuthentication,)
     permission_classes = (permissions.IsAuthenticated,)
@@ -49,6 +49,9 @@ class UserProfileUpdateView(generics.RetrieveUpdateAPIView):
 
 
 class LogoutAPIView(views.APIView):
+    """
+    user logout api
+    """
     authentication_classes = (authentication.TokenAuthentication,)
 
     def get(self, request, format=None):
@@ -62,7 +65,7 @@ class LogoutAPIView(views.APIView):
 
 
 class PasswordRestEmailAPIView(generics.GenericAPIView):
-    """Password reset request"""
+    """user password reset api"""
 
     serializer_class = PasswordRestEmailSerializer
 
