@@ -141,10 +141,14 @@ pip install -r requirements.txt
 
 ### Step 3
 
-1. Create a .env file in the project directory where setting.py file located, 
+1. Fast You need to create two free accounts in Sendgrid and NewsAPI beforehand.
+   - Sendgrid ( https://sendgrid.com/ ) - For sending emails
+   - NewsAPI ( https://newsapi.org/ ) - For fetching news
+
+1. Create a .env file in the project directory where ```setting.py``` file located, 
    open it with your favorite text editor and paste the bellow lines
 
->❗I share it for testing purposes. It will be deleted soon.
+>❗I share the key for testing purposes. It will be deleted soon.
 ```.env
 NEWS_API_KEY = ec6c9a7b6ea049099a62487b2c8987c4
 
@@ -160,8 +164,6 @@ EMAIL_HOST_PASSWORD = SG.fSRS41e5Sdi6q-2QGLXCFg.rWhlpwmY_HhlE-zEChR8JegG3IB-cOLr
 
 FORM_EMAIL = allinoner7@gmail.com
 ```
-
-> If you want to set up sendgrid now then go to this [section](https://sendgrid.com/)
 
 2. You are all setup, let’s migrate now.
 
@@ -191,9 +193,9 @@ user setting for getting news.
 
 ---
 ## For live view: 
-- url: https://news-portal-st.herokuapp.com/
-- mail: rakib1@gmail.com
-- password: test123456
+- ***Url***: https://news-portal-st.herokuapp.com/
+- ***Mail***: rakib1@gmail.com
+- ***Password***: test123456
 ---
 
 
