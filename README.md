@@ -150,19 +150,19 @@ pip install -r requirements.txt
 
 >❗I share the key for testing purposes. It will be deleted soon.
 ```.env
-NEWS_API_KEY = ec6c9a7b6ea049099a62487b2c8987c4
+NEWS_API_KEY = your api key
 
-SECRET_KEY = *@jqu&dhs+q%4n%g1dpuc61flcy7zcny)%d(x+pc21)_$dx
+SECRET_KEY = your secret key
 
 DEBUG = True
 
 ALLOWED_HOSTS=.localhost, 127.0.0.1
 
 EMAIL_HOST = smtp.sendgrid.net
-EMAIL_HOST_USER = apikey
-EMAIL_HOST_PASSWORD = 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
+EMAIL_HOST_USER = your host user
+EMAIL_HOST_PASSWORD = your host password
 
-FORM_EMAIL = allinoner7@gmail.com
+FORM_EMAIL = your form email
 ```
 
 2. You are all setup, let’s migrate now.
